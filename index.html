@@ -75,7 +75,7 @@
             </div>
             <div
                 class="grid grid-flow-col lg:grid-rows-4 md:grid-rows-6 sm:grid-rows-12 grid-rows-12 flex justify-center gap-10">
-                <div v-for="product in products" class=" bg-white rounded-2xl shadow-2xl h-100 w-80">
+                <div v-for="(product, index) in products" class=" bg-white rounded-2xl shadow-2xl h-100 w-80">
                     <img class="h-80 w-60 rounded-xl mx-10 py-10" :src="product.img" alt="">
 
                     <div class="bg-gray-400 h-15 mt-8  rounded-b-xl flex justify-center gap-10">
@@ -103,8 +103,15 @@
         <div v-if="showASM" class="w-full flex justify-center border border-red-500">
             <div class="fixed lg:top-50 md:top-80 sm:top-70 top-80 z-10 backdrop-blur bg-white/60 rounded-lg lg:py-10 md:py-10 lg:px-15 md:px-15 sm:py-5 sm:px-10 py-5 px-10">
                 <div class="max-w-7xl mx-auto flex flex-col lg:space-y-5 md:space-y-5 sm:space-y-5 space-y-5">
-                    <h1 class="text-2xl font-semibold text-center">{{prod}}</h1>
-                    <h1 class="text-2xl font-semibold text-center">{{price}}</h1>
+                    <div class="flex justify-center gap-5">
+                        <div>
+                            <img class="h-40 w-40 rounded-2xl" :src="img" alt="">
+                        </div>
+                        <div class="py-15">
+                            <h1 class="text-2xl font-semibold text-center">{{prod}}</h1>
+                            <h1 class="text-2xl font-semibold text-center">{{price}}</h1>
+                        </div>
+                    </div>
                     <input v-model="klspcs"
                         class="border font-bold rounded-xl lg:py-2 md:py-2 lg:px-3 md:px-3 lg:w-[30vw] md:w-[40vw] sm:py-1 sm:px-3 py-2 px-4"
                         type="text" placeholder="kls/pcs">
@@ -210,9 +217,10 @@
                         { img: 'https://www.fastener.com.sg/images/detailed/2/STANLEY_RUBBER_MALLET.jpg', name: 'Rubber Mallet', price: '$17' }
                     ],
                     showASM: false,
-
+                    img: '',
                     prod: '',
-                    price: ''
+                    price: '',
+                    
                     
 
 
@@ -222,8 +230,10 @@
             methods: {
                 buy(product, index) {
                     this.showASM = true;
+                    this.img = product.img;
                     this.prod = product.name;
                     this.price = product.price;
+                    
 
                 },
                 closeASM() {
